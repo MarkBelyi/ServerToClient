@@ -9,14 +9,17 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import com.example.client.ViewModel.ClientViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun ClientApp(viewModel: ClientViewModel = hiltViewModel()) {
     var ip by remember { mutableStateOf(TextFieldValue("192.168.1.100")) }
     var port by remember { mutableStateOf(TextFieldValue("5986")) }
     var isConnected by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()) {
         BasicTextField(
@@ -58,7 +61,7 @@ fun ClientApp(viewModel: ClientViewModel = hiltViewModel()) {
                 data = Uri.parse("http://www.google.com")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-            it.context.startActivity(intent)
+            context.startActivity(intent)
         }) {
             Text("Start")
         }

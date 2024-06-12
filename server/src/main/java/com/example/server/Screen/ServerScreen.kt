@@ -8,10 +8,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.server.ViewModel.ServerViewModel
 
 @Composable
 fun ServerApp(viewModel: ServerViewModel = hiltViewModel()) {
-    var port by remember { mutableStateOf(TextFieldValue("8080")) }
+    var port by remember { mutableStateOf(TextFieldValue("5986")) }
     var isRunning by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize()) {

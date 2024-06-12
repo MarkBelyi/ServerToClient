@@ -1,31 +1,36 @@
 package com.example.server.Manager
 
 import android.content.Context
-import androidx.room.Room
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.routing.*
-import io.ktor.server.websocket.*
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.websocket.*
+import com.example.server.Database.LogDatabase
+import com.example.server.Database.LogEntry
+import io.ktor.serialization.kotlinx.json.json
+import io.ktor.server.application.install
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.netty.NettyApplicationEngine
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.routing.routing
+import io.ktor.server.websocket.WebSockets
+import io.ktor.server.websocket.webSocket
+import io.ktor.websocket.CloseReason
+import io.ktor.websocket.Frame
+import io.ktor.websocket.close
+import io.ktor.websocket.readText
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ServerManager @Inject constructor(context: Context) {
-
+class ServerManager @Inject constructor(
+    private val context: Context,
+    private val database: LogDatabase
+) {
     private val serverScope = CoroutineScope(Dispatchers.IO)
     private var server: NettyApplicationEngine? = null
-
-    // Initialize Room database
-    private val database: LogDatabase = Room.databaseBuilder(
-        context.applicationContext,
-        LogDatabase::class.java, "log_database"
-    ).build()
 
     fun startServer(port: Int) {
         serverScope.launch {
@@ -65,9 +70,8 @@ class ServerManager @Inject constructor(context: Context) {
     }
 
     fun stopServer() {
-        serverScope.launch {
-            server?.stop(1000, 1000)
-        }
+        serverScope.coroutineContext.cancelChildren()
+        server?.stop(1000, 1000)
     }
 
     suspend fun getAllLogs(): List<LogEntry> {
