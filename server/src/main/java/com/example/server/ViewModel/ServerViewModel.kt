@@ -21,14 +21,14 @@ class ServerViewModel @Inject constructor(
 
     fun startServer(port: Int) {
         println("Start server button clicked.")
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             serverManager.startServer(port)
         }
     }
 
     fun stopServer() {
         println("Stop server button clicked.")
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             serverManager.stopServer()
         }
     }
@@ -40,3 +40,4 @@ class ServerViewModel @Inject constructor(
         }
     }
 }
+

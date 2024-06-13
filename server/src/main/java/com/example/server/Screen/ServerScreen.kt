@@ -35,7 +35,7 @@ fun ServerApp(viewModel: ServerViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colorScheme.background)
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -59,7 +59,9 @@ fun ServerApp(viewModel: ServerViewModel = hiltViewModel()) {
             }
             isServerRunning = !isServerRunning
         },
-            modifier = Modifier.fillMaxWidth(0.8f).height(45.dp)
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .height(45.dp)
         ) {
             Text(if (isServerRunning) "Stop" else "Start")
         }

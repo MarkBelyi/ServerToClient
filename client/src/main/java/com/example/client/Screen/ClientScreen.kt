@@ -37,32 +37,26 @@ fun ClientApp(viewModel: ClientViewModel = hiltViewModel()) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.background)
-            .padding(16.dp),
+        .fillMaxSize()
+        .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
         OutlinedTextField(
             value = ip,
             onValueChange = { ip = it },
-            label = { Text("Server IP") },
+            label = { Text("IP Address") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(0.8f)
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = port,
             onValueChange = { port = it },
-            label = { Text("Server Port") },
+            label = { Text("Port") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(0.8f)
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
             if (isConnected) {
@@ -71,16 +65,15 @@ fun ClientApp(viewModel: ClientViewModel = hiltViewModel()) {
                 viewModel.connect(ip.text, port.text.toInt())
             }
             isConnected = !isConnected
+
         },
-            modifier = Modifier.fillMaxWidth(0.8f).height(45.dp)
+            modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(if (isConnected) "Disconnect" else "Connect")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
         Button(onClick = {
-            viewModel.sendMessage("CHROME_OPENED")
+            viewModel.sendMessage("open_chrome")
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("http://www.google.com")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
