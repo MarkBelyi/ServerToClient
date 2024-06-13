@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.example.client.ViewModel.ClientViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 
+
 @Composable
 fun ClientApp(viewModel: ClientViewModel = hiltViewModel()) {
     var ip by remember { mutableStateOf(TextFieldValue("192.168.1.100")) }
@@ -56,7 +57,7 @@ fun ClientApp(viewModel: ClientViewModel = hiltViewModel()) {
         }
 
         Button(onClick = {
-            viewModel.sendMessage("open_chrome")
+            viewModel.sendMessage("CHROME_OPENED")
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("http://www.google.com")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
