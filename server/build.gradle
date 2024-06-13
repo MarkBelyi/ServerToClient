@@ -88,15 +88,25 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
 
-    implementation "io.ktor:ktor-server-core:2.3.0"
-    implementation "io.ktor:ktor-server-netty:2.3.0"
-    implementation "io.ktor:ktor-server-websockets:2.3.0"
-    implementation "io.ktor:ktor-server-content-negotiation:2.3.0"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:2.3.0"
+    implementation "io.ktor:ktor-server-core:2.0.0"
+    implementation "io.ktor:ktor-server-netty:2.0.0"
+    implementation "io.ktor:ktor-server-websockets:2.0.0"
+    implementation "io.ktor:ktor-serialization-kotlinx-json:2.0.0"
+    implementation "io.ktor:ktor-server-content-negotiation:2.0.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
 
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-runtime:2.6.1")
+
+    implementation "io.netty:netty-all:4.1.73.Final"
+    implementation "io.netty:netty-transport-native-epoll:4.1.73.Final:linux-x86_64"
+    implementation "io.netty:netty-transport-native-epoll:4.1.73.Final:linux-aarch_64"
+    implementation "io.netty:netty-transport-native-kqueue:4.1.73.Final:osx-x86_64"
+    implementation "io.netty:netty-transport-native-kqueue:4.1.73.Final:osx-aarch_64"
+
+
 }
 
 kapt {

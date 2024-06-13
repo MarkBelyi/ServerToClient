@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.server.Manager.ServerManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,17 +20,23 @@ class ServerViewModel @Inject constructor(
     val logs: StateFlow<List<String>> = _logs
 
     fun startServer(port: Int) {
-        serverManager.startServer(port)
+        println("Start server button clicked.")
+        viewModelScope.launch(Dispatchers.IO) {
+            serverManager.startServer(port)
+        }
     }
 
     fun stopServer() {
-        serverManager.stopServer()
+        println("Stop server button clicked.")
+        viewModelScope.launch(Dispatchers.IO) {
+            serverManager.stopServer()
+        }
     }
 
     fun loadLogs() {
         viewModelScope.launch {
-            val logEntries = serverManager.getAllLogs()
-            _logs.value = logEntries.map { it.message }
+            val logs = serverManager.getAllLogs().map { it.message }
+            _logs.value = logs
         }
     }
 }

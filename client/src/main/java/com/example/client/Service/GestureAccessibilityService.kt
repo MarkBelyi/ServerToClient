@@ -2,29 +2,35 @@ package com.example.client.Service
 
 import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent
+import android.util.Log
 
 class GestureAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
+        Log.d("GestureAccessibilityService", "Service connected")
     }
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
+    override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+        // Handle accessibility events
+    }
 
-    override fun onInterrupt() {}
+    override fun onInterrupt() {
+        Log.d("GestureAccessibilityService", "Service interrupted")
+    }
 
     fun performSwipeUp() {
-        // Логика выполнения свайпа вверх
+        Log.d("GestureAccessibilityService", "Performing swipe up")
     }
 
     fun performSwipeDown() {
-        // Логика выполнения свайпа вниз
+        Log.d("GestureAccessibilityService", "Performing swipe down")
     }
 
     fun performSwipeRight() {
-        // Логика выполнения свайпа вправо
+        Log.d("GestureAccessibilityService", "Performing swipe right")
     }
 
     fun performSwipeLeft() {
-        // Логика выполнения свайпа влево
+        Log.d("GestureAccessibilityService", "Performing swipe left")
     }
 }
