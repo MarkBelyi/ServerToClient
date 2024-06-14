@@ -17,11 +17,7 @@ import io.ktor.websocket.CloseReason
 import io.ktor.websocket.Frame
 import io.ktor.websocket.close
 import io.ktor.websocket.readText
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -35,33 +31,29 @@ class ServerManager @Inject constructor(
 
     fun startServer(port: Int) {
         serverScope.launch {
-            try {
-                server = embeddedServer(Netty, host = "0.0.0.0", port = port) {
-                    install(WebSockets)
-                    install(ContentNegotiation) {
-                        json()
-                    }
-                    routing {
-                        webSocket("/ws") {
-                            try {
-                                for (frame in incoming) {
-                                    if (frame is Frame.Text) {
-                                        val receivedText = frame.readText()
-                                        saveLog(receivedText)
-                                        handleClientMessage(receivedText)
-                                    }
+            server = embeddedServer(Netty, host = "0.0.0.0", port = port) {
+                install(WebSockets)
+                install(ContentNegotiation) {
+                    json()
+                }
+                routing {
+                    webSocket("/ws") {
+                        try {
+                            for (frame in incoming) {
+                                if (frame is Frame.Text) {
+                                    val receivedText = frame.readText()
+                                    saveLog(receivedText)
+                                    handleClientMessage(receivedText)
                                 }
-                            } finally {
-                                close(CloseReason(CloseReason.Codes.NORMAL, "Client disconnected"))
                             }
+                        } finally {
+                            close(CloseReason(CloseReason.Codes.NORMAL, "Client disconnected"))
                         }
                     }
                 }
-                server?.start(wait = false)
-                Log.d("ServerManager", "Server started on port $port")
-            } catch (e: Exception) {
-                Log.e("ServerManager", "Failed to start server", e)
             }
+            server?.start(wait = false)
+            Log.d("ServerManager", "Server started on 0.0.0.0:$port")
         }
     }
 
@@ -123,3 +115,4 @@ class ServerManager @Inject constructor(
         }
     }
 }
+

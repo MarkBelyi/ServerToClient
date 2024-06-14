@@ -88,11 +88,16 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
 
-    implementation "io.ktor:ktor-server-core:2.0.0"
-    implementation "io.ktor:ktor-server-netty:2.0.0"
-    implementation "io.ktor:ktor-server-websockets:2.0.0"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:2.0.0"
-    implementation "io.ktor:ktor-server-content-negotiation:2.0.0"
+    implementation("io.ktor:ktor-server-core:2.3.0")
+    implementation("io.ktor:ktor-server-netty:2.3.0")
+    implementation("io.ktor:ktor-server-websockets:2.3.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.0")
+    implementation("io.ktor:ktor-server-content-negotiation:2.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+
+    implementation("ch.qos.logback:logback-classic:1.2.11")
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
 

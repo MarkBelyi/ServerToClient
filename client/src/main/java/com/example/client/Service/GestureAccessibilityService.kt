@@ -11,7 +11,6 @@ class GestureAccessibilityService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        // Handle accessibility events
     }
 
     override fun onInterrupt() {
